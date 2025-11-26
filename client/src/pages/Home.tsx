@@ -3,13 +3,17 @@ import { useQuery } from "@tanstack/react-query";
 import type { SalePostWithDetails } from "@shared/schema";
 import { Card } from "@/components/ui/card";
 import { formatPrice, getTimeRemaining, calculateDiscount } from "@/lib/utils";
+import { apiFetch } from "@/lib/api"; // ← BÆTT VIÐ
 
 async function fetchHomePosts(): Promise<SalePostWithDetails[]> {
-  const res = await fetch("/api/v1/posts");
+  // NOTUM apiFetch SVO KALLIÐ FER Á RENDER, EKKI NETLIFY
+  const res = await apiFetch("/api/v1/posts");
+
   if (!res.ok) {
     const text = await res.text().catch(() => "");
     throw new Error(text || "Tókst ekki að sækja útsölur.");
   }
+
   return res.json() as Promise<SalePostWithDetails[]>;
 }
 
