@@ -1,19 +1,15 @@
 [build]
-  # Segir Netlify að nota client/ sem workdir
-  base = "client"
-  # Keyrir Vite build inni í client/ (npm run build er til þar)
-  command = "npm run build"
-  # Vite setur buildið í client/dist
+  command = "npm run build:frontend"
   publish = "dist"
 
-# Öll /api köll frá Netlify → Replit backend
+# Backend API á Replit
 [[redirects]]
   from = "/api/*"
   to = "https://526cb025-19f3-44f7-8f5d-6f058115b7de-00-1j9hm75tqhard.picard.replit.dev/api/:splat"
   status = 200
   force = true
 
-# SPA fallback fyrir routing (/#/leit o.s.frv.)
+# SPA fallback (Vite routing / # / etc.)
 [[redirects]]
   from = "/*"
   to = "/index.html"
